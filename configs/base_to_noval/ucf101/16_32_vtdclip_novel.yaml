@@ -1,0 +1,29 @@
+DATA:
+    ROOT: '/path/ucf_101/'
+    TRAIN_FILE: 'datasets_splits/base2novel_splits/ucf_splits/base_train.txt'
+    VAL_FILE: 'datasets_splits/base2novel_splits/ucf_splits/novel.txt'
+    DATASET: ucf101
+    NUM_FRAMES: 32
+    NUM_CLASSES: 51
+    LABEL_LIST: 'labels/ucf_101_novel_labels.csv'
+MODEL:
+    ARCH: ViT-B/16
+TRAIN:
+    BATCH_SIZE: 32 # BS 64
+    ACCUMULATION_STEPS: 1
+    EPOCHS: 100
+    LR: 2.e-06
+    WARMUP_EPOCHS: 5
+    COS_DECAY_EPOCHS: 25          
+    COS_DECAY_LR_MULTIPLIER: 0.1
+    STEP_DECAY_INTERVAL_EPOCHS: 5
+    STEP_DECAY_MULTIPLIER: 0.5
+TRAINER:
+  VTD_CLIP:
+    ZS_EVAL: False # Make True only during test mode to evaluate zero-shot vanilla CLIP performance
+    USE: "none" # both refers to complete fine-tuning of CLIP (text+image encoders)
+    N_CTX_TEXT: 16
+    CTX_INIT: "a photo of a"
+    PROMPT_DEPTH_VISION: 9
+    PROMPT_DEPTH_TEXT: 9
+SAVE_FREQ: 10

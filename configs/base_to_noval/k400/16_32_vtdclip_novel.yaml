@@ -1,0 +1,30 @@
+DATA:
+    ROOT: '/path/k400'
+    TRAIN_FILE: 'datasets_splits/base2novel_splits/k400_splits/train_base.txt'
+    VAL_FILE: 'datasets_splits/base2novel_splits/k400_splits/novel.txt'
+    DATASET: kinetics400
+    NUM_FRAMES: 32
+    NUM_CLASSES: 200
+    LABEL_LIST: 'labels/kinetics_400_novel_labels.csv'
+MODEL:
+    ARCH: ViT-B/16
+TRAIN:
+    BATCH_SIZE: 32 # BS 64
+    ACCUMULATION_STEPS: 2
+    EPOCHS: 80
+    LR: 4.e-03
+    WARMUP_EPOCHS: 5
+    COS_DECAY_EPOCHS: 25          
+    COS_DECAY_LR_MULTIPLIER: 0.1
+    STEP_DECAY_INTERVAL_EPOCHS: 5
+    STEP_DECAY_MULTIPLIER: 0.5
+TRAINER:
+  VTD_CLIP:
+    ZS_EVAL: False # Make True only during test mode to evaluate zero-shot vanilla CLIP performance
+    PROMPT_MODEL: True # If true, will only train the prompts while keeping rest of the model frozen
+    N_CTX_VISION: 16
+    N_CTX_TEXT: 16
+    CTX_INIT: "a photo of a"
+    PROMPT_DEPTH_VISION: 9
+    PROMPT_DEPTH_TEXT: 9
+SAVE_FREQ: 10

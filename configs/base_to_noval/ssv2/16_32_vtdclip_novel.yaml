@@ -1,0 +1,30 @@
+DATA:
+    ROOT: "/path/ssv2/20bn-something-something-v2/"
+    TRAIN_FILE: 'datasets_splits/base2novel_splits/ssv2_splits/base_train.txt'
+    VAL_FILE: 'datasets_splits/base2novel_splits/ssv2_splits/novel.txt'
+    DATASET: ssv2
+    NUM_FRAMES: 32
+    NUM_CLASSES: 87
+    LABEL_LIST: 'labels/ssv2_174_novel_labels.csv'
+MODEL:
+    ARCH: ViT-B/16
+TRAIN:
+    BATCH_SIZE: 4 # BS 64
+    ACCUMULATION_STEPS: 2
+    EPOCHS: 50
+    LR: 2.e-03
+    WARMUP_EPOCHS: 5
+    COS_DECAY_EPOCHS: 25            
+    COS_DECAY_LR_MULTIPLIER: 0.05  
+    STEP_DECAY_INTERVAL_EPOCHS: 5   
+    STEP_DECAY_MULTIPLIER: 0.5    
+TRAINER:
+  VTD_CLIP:
+    ZS_EVAL: False # Make True only during test mode to evaluate zero-shot vanilla CLIP performance
+    PROMPT_MODEL: True # If true, will only train the prompts while keeping rest of the model frozen
+    N_CTX_VISION: 16
+    N_CTX_TEXT: 16
+    CTX_INIT: "a photo of a"
+    PROMPT_DEPTH_VISION: 12
+    PROMPT_DEPTH_TEXT: 12
+SAVE_FREQ: 5

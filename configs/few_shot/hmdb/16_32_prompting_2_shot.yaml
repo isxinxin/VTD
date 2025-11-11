@@ -1,0 +1,28 @@
+DATA:
+    ROOT: '/path/hmdb51'
+    TRAIN_FILE: 'datasets_splits/hmdb_splits/train1_few_shot_2.txt'
+    VAL_FILE: 'datasets_splits/hmdb_splits/val1.txt'
+    DATASET: hmdb51
+    NUM_FRAMES: 32
+    NUM_CLASSES: 51
+    LABEL_LIST: 'labels/hmdb_51_labels.csv'
+MODEL:
+    ARCH: ViT-B/16
+TRAIN:
+    BATCH_SIZE: 4 # BS 64
+    ACCUMULATION_STEPS: 2
+    EPOCHS: 100
+    LR: 8.e-04
+    WARMUP_EPOCHS: 5
+    COS_DECAY_EPOCHS: 50            
+    COS_DECAY_LR_MULTIPLIER: 0.01   
+    STEP_DECAY_INTERVAL_EPOCHS: 5   
+    STEP_DECAY_MULTIPLIER: 0.5    
+TRAINER:
+  VTD_CLIP:
+    PROMPT_MODEL: True
+    N_CTX_VISION: 10
+    N_CTX_TEXT: 10
+    PROMPT_DEPTH_VISION: 12
+    PROMPT_DEPTH_TEXT: 12
+SAVE_FREQ: 5
